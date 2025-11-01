@@ -36,12 +36,12 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
     const years = Object.keys(yearGroups).sort();
     let currentYearIndex = 0;
 
-    // District colors
+    // District colors - using the new color scheme
     const districtColors: Record<string, string> = {};
     const colorPalette = [
-      '#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de',
-      '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc', '#5470c6',
-      '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272'
+      '#0046FF', '#0046FF', '#0046FF', '#0046FF', '#0046FF',
+      '#0046FF', '#0046FF', '#0046FF', '#0046FF', '#0046FF',
+      '#0046FF', '#0046FF', '#0046FF', '#0046FF', '#0046FF'
     ];
 
     const allDistricts = [...new Set(data.map(d => d.district))];
@@ -71,22 +71,22 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
           const param = Array.isArray(params) ? params[0] : params;
           return `
             <div style="padding: 8px 12px; font-family: system-ui, -apple-system, sans-serif;">
-              <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px; color: #000;">
+              <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px; color: #1A3D64;">
                 ${param.name}
               </div>
-              <div style="font-size: 13px; color: #666;">
-                Value: <strong style="color: #000;">${param.value.toLocaleString()}</strong>
+              <div style="font-size: 13px; color: #1A3D64; opacity: 0.7;">
+                Value: <strong style="color: #1A3D64;">${param.value.toLocaleString()}</strong>
               </div>
             </div>
           `;
         },
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        borderColor: '#000',
-        borderWidth: 1,
+        backgroundColor: '#FAF8F1',
+        borderColor: '#1A3D64',
+        borderWidth: 2,
         textStyle: {
-          color: '#000'
+          color: '#1A3D64'
         },
-        extraCssText: 'box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);'
+        extraCssText: 'box-shadow: 0 4px 12px rgba(26, 61, 100, 0.15);'
       },
       xAxis: {
         type: 'value',
@@ -95,7 +95,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
         nameGap: 30,
         nameTextStyle: {
           fontSize: 12,
-          color: '#000',
+          color: '#1A3D64',
           fontWeight: 600
         },
         max: 'dataMax',
@@ -103,18 +103,18 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
           formatter: (n: number) => {
             return Math.round(n).toLocaleString();
           },
-          color: '#333',
+          color: '#1A3D64',
           fontSize: 11
         },
         splitLine: {
           lineStyle: {
-            color: 'rgba(0, 0, 0, 0.08)',
+            color: 'rgba(26, 61, 100, 0.1)',
             type: 'dashed'
           }
         },
         axisLine: {
           lineStyle: {
-            color: '#000'
+            color: 'rgba(26, 61, 100, 0.3)'
           }
         }
       },
@@ -125,7 +125,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
         nameGap: 10,
         nameTextStyle: {
           fontSize: 12,
-          color: '#000',
+          color: '#1A3D64',
           fontWeight: 600
         },
         inverse: true,
@@ -133,7 +133,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
         axisLabel: {
           show: true,
           fontSize: 12,
-          color: '#000',
+          color: '#1A3D64',
           fontWeight: 500
         },
         animationDuration: 300,
@@ -143,7 +143,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
         },
         axisLine: {
           lineStyle: {
-            color: '#000'
+            color: 'rgba(26, 61, 100, 0.3)'
           }
         }
       },
@@ -159,14 +159,14 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
               value: item.value
             })) || [],
           itemStyle: {
-            color: '#000',
+            color: '#0046FF',
             borderRadius: [0, 4, 4, 0]
           },
           emphasis: {
             itemStyle: {
-              color: '#333',
+              color: '#0037CC',
               shadowBlur: 10,
-              shadowColor: 'rgba(0, 0, 0, 0.3)'
+              shadowColor: 'rgba(0, 70, 255, 0.3)'
             }
           },
           label: {
@@ -180,7 +180,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
             formatter: (param: any) => {
               return param.value.toLocaleString();
             },
-            color: '#000'
+            color: '#1A3D64'
           }
         }
       ],
@@ -197,7 +197,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
             style: {
               text: years[0],
               font: 'bolder 48px system-ui',
-              fill: 'rgba(0, 0, 0, 0.08)'
+              fill: 'rgba(26, 61, 100, 0.08)'
             },
             z: 100
           }
@@ -211,11 +211,12 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
         textStyle: {
           fontSize: 18,
           fontWeight: 700,
-          color: '#000'
+          color: '#1A3D64'
         },
         subtextStyle: {
           fontSize: 11,
-          color: '#666'
+          color: '#1A3D64',
+          opacity: 0.7
         }
       } : undefined
     };
@@ -271,8 +272,8 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
   return (
     <div 
       ref={chartRef} 
-      className="w-full h-[400px] md:h-[500px]"
-      style={{ minHeight: '400px' }}
+      className="w-full h-[500px] lg:h-[600px]"
+      style={{ minHeight: '500px' }}
     />
   );
 }
