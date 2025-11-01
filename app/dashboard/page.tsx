@@ -21,11 +21,17 @@ import apiService, { State, District } from '@/lib/api';
 
 export default function Home() {
   const [selectedState, setSelectedState] = useState<State | null>(null);
+  interface ChartDataItem {
+    district: string;
+    value: number;
+    year: string;
+  }
+
   const [states, setStates] = useState<State[]>([]);
   const [districts, setDistricts] = useState<District[]>([]);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [chartData, setChartData] = useState<any[]>([]);
+  const [chartData, setChartData] = useState<ChartDataItem[]>([]);
   const [selectedDistrictCode, setSelectedDistrictCode] = useState<string | null>(null);
 
   useEffect(() => {
@@ -63,7 +69,7 @@ export default function Home() {
 
   const generateChartData = (districtsData: District[]) => {
     const years = ['2020-21', '2021-22', '2022-23', '2023-24', '2024-25'];
-    const data: any[] = [];
+    const data: ChartDataItem[] = [];
 
     // Use ALL districts, not just slice
     districtsData.forEach(district => {

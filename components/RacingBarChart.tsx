@@ -25,7 +25,12 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
     }
 
     // Group data by year
-    const yearGroups: Record<string, any[]> = {};
+    interface YearGroupItem {
+      district: string;
+      value: number;
+      year: string;
+    }
+    const yearGroups: Record<string, YearGroupItem[]> = {};
     data.forEach(item => {
       if (!yearGroups[item.year]) {
         yearGroups[item.year] = [];
@@ -67,6 +72,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
             color: 'rgba(0, 0, 0, 0.1)'
           }
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (params: any) => {
           const param = Array.isArray(params) ? params[0] : params;
           return `
@@ -100,7 +106,8 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
         },
         max: 'dataMax',
         axisLabel: {
-          formatter: (n: number) => {
+          formatter: (value: number | string) => {
+            const n = typeof value === 'string' ? parseFloat(value) : value;
             return Math.round(n).toLocaleString();
           },
           color: '#1A3D64',
@@ -177,6 +184,7 @@ export default function RacingBarChart({ data, title }: RacingBarChartProps) {
             fontFamily: 'system-ui, -apple-system, sans-serif',
             fontSize: 12,
             fontWeight: 600,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: (param: any) => {
               return param.value.toLocaleString();
             },
